@@ -2,6 +2,7 @@
  Represents a shared file on box
 """
 from urllib.parse import (unquote_plus)
+from pprint import pprint
 
 class BoxFile:
     """Box shared file"""
@@ -10,20 +11,21 @@ class BoxFile:
     shared_item_type = None
 
     def __init__(self, shared_item):
-        print('Initializing box file...')
+        #print('Initializing box file...')
+        #print('shared_item: ', shared_item)
         self.shared_item = shared_item
-        self.file_id = self.shared_item.id
-        self.shared_item_type = self.shared_item.type
-        print('Box file initialized, Type:',self.shared_item_type +', Name:', self.get_filename())
+        self.file_id = self.shared_item['id']
+        self.shared_item_type = self.shared_item['type']
+        #print('Box file initialized, Type:',self.shared_item_type +', Name:', self.get_filename())
 
     def get_filename(self):
         """Returns human filename. Box file name is url decoded, including + signs"""
-        return unquote_plus(self.shared_item.name)
+        #return unquote_plus(self.shared_item['name'])
+        return self.shared_item['name']
 
     def get_folder(self):
         """Returns full containing path of the file"""
-        mylist = self.shared_item.path_collection
-
+        mylist = self.shared_item['path_collection']
         # for key, value in mylist.items():
         #     print (key, value)
 

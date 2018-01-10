@@ -1,5 +1,5 @@
 """
- Printing in color
+ Color codes for pretty printing
 """
 class PrintColor:
     """

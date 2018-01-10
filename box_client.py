@@ -13,6 +13,9 @@ class BoxClient:
     BOX_TOKEN = None
     DEBUG = False
     client = None
+    #https:\/\/app\.box\.com\/(shared|s)\/(.*?)\/(\d)\/(\d+)\/(\d+)\/(\d)
+    #OLDhttps:\/\/app\.box\.com\/shared\/(.*?)\/(\d)\/(\d+)\/(\d+)\/(\d)
+    id_share_pattern = re.compile("https:\/\/app\.box\.com\/(shared|s)\/(.*?)\/(\d)\/(\d+)\/(\d+)\/(\d)")
 
     def __init__(self, token, debug):
         print('Initializing box client... Token:', token)
@@ -33,17 +36,19 @@ class BoxClient:
         """
         Returns shared item object based on the given shared url
         """
-        # id_share_pattern = re.compile("https:\/\/app\.box\.com\/shared\/(.*?)\/(\d)\/(\d+)\/(\d+)\/(\d)")
-        # if id_share_pattern.match(shared_url):
-        #     title_search = re.search('<title>(.*)</title>', html, re.IGNORECASE)
-        #     if title_search:
-        #         title = title_search.group(1)
-        #     print('Match:', shared_url)
-
-        ret = self.client.get_shared_item(shared_url)
-
+        ret = None
+        
+        if self.id_share_pattern.match(shared_url):
+            id_search = self.id_share_pattern.search(shared_url)
+            if id_search:
+                file_id = id_search.group(5)
+                #print('Match:', shared_url, ', fileid:', file_id)
+                ret =  self.get_shared_item_by_id(file_id)
+        else:
+            ret = self.client.get_shared_item(shared_url).__dict__
+ 
         if self.DEBUG:
-            pprint(vars(ret))
+            print(ret)
         #print('ret:', ret)
         return ret
 
@@ -61,14 +66,13 @@ class BoxClient:
         """
         Returns a box item by it's id
         """
-        #  curl https://api.box.com/2.0/files/123762924238 -H "Authorization: Bearer dlajvOKCxSoSldqmLo3KezGv4oPloC7i"
         url = "https://api.box.com/2.0/files/" + str(item_id)
         headers = {'Authorization': 'Bearer ' + self.BOX_TOKEN}
         
         response_raw = requests.get(url, headers=headers)
         #print(response_raw.text)
         response = json.loads(response_raw.text)
-        pprint(response)        
+        #pprint(response)        
         return response
 
     def sanitize_shared_url(self, shared_url):

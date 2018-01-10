@@ -87,7 +87,8 @@ CSV_IN.seek(0)
 LAST_ENTRY = CSV_IN_ROW_COUNT if args.limit == 0 else args.first + args.limit-1
 LIMIT = LAST_ENTRY - args.first +1
 #print('LIMIT:', LIMIT, 'LAST_ENTRY:', LAST_ENTRY)
-# Reading inpout and writing output in the same loop
+
+#Reading inpout and writing output in the same loop
 #with open(args.input, newline='') as csvfile:
 #READER = csv.DictReader(CSV_IN, fieldnames=input_field_names)
 READER = csv.DictReader(CSV_IN)
@@ -127,15 +128,14 @@ for row in READER:
 
     try:
         sanitized_url = box_client.sanitize_shared_url(shared_url=row[BOX_URL_COLUMN_NAME])
-        #shared_item = box_client.get_shared_item(sanitized_url)
-        shared_item = box_client.get_shared_item_by_id('123762924238')
+        shared_item = box_client.get_shared_item(sanitized_url)
         theFile = BoxFile(shared_item)
         row.update({'location_type' :  theFile.get_type()})
         row.update({'location' : theFile.get_full_path()})
         print(PrintColor.OKBLUE, 'Done.' + PrintColor.ENDC, row[BOX_URL_COLUMN_NAME])
         print('  Box\t\t' + COLORS[row['location_type']] + row['location_type'].upper() + ':', row['location'] + PrintColor.ENDC)
-    except:
-        print(error.args[0])
+    except Exception as error:
+        #print('Error:', error.args[0])
         error_count_box += 1
         print(PrintColor.OKBLUE, 'Done.' + PrintColor.ENDC, row[BOX_URL_COLUMN_NAME])
         print('  Box\t\t' + PrintColor.FAIL + 'Could not find item:' + row[BOX_URL_COLUMN_NAME] + PrintColor.ENDC)
