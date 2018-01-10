@@ -13,8 +13,6 @@ class BoxClient:
     BOX_TOKEN = None
     DEBUG = False
     client = None
-    #https:\/\/app\.box\.com\/(shared|s)\/(.*?)\/(\d)\/(\d+)\/(\d+)\/(\d)
-    #OLDhttps:\/\/app\.box\.com\/shared\/(.*?)\/(\d)\/(\d+)\/(\d+)\/(\d)
     id_share_pattern = re.compile("https:\/\/app\.box\.com\/(shared|s)\/(.*?)\/(\d)\/(\d+)\/(\d+)\/(\d)")
 
     def __init__(self, token, debug):

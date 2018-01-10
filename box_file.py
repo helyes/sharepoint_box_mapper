@@ -33,8 +33,8 @@ class BoxFile:
         #print('Folder: ' , mylist['entries'][1])
         path = '/'
         for folder in mylist['entries']:
-            # print(x['name'])
-            path = path + folder['name'] + '/'
+            #print(folder['name'])
+            path = path + folder['name'].lstrip() + '/' #sometimes folder names start with whitespace ??
         return path
 
     def get_full_path(self):

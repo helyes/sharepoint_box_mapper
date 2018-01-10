@@ -1,10 +1,11 @@
+#Useful resources
+
 https://developer.box.com/reference#get-shared-link
 https://github.com/box/box-python-sdk
 https://developer.box.com/v2.0/docs/app-users
 http://box-python-sdk.readthedocs.io/en/latest/
 https://developer.box.com/docs/folder-structure
 https://developer.box.com/v2.0/docs/get-all-users
-
 
 ### Generating new import files including errors only
 
@@ -14,7 +15,7 @@ This is a template, pay attention to awk parameters as they depend on csv struct
 
 The file will *NOT* contain the header lines. Need to be added manually.
 
-    cat 6-os2-db-tables-having-box-links-prod-copy-result-fixed-quoted.csv | awk -F "," '/ERROR/ {print $1","$2","$3","$4","$5}' |  > 6-errors-$(date "+%Y-%m-%d-%H-%M-%S").csv
+    cat 6-os2-db-tables-having-box-links-prod-copy-result-fixed-quoted.csv | awk -F "," '/ERROR/ {print $1","$2","$3","$4","$5}'  > 6-errors-$(date "+%Y-%m-%d-%H-%M-%S").csv
 
 *Original csv file including box links*
     
