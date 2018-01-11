@@ -85,7 +85,7 @@ class SharepointClient:
 
     def get_shared_url_public(self, f: SharepointFile):
         url = self.GRAPH_BASE_URL +  "/drives/" + self.ONEDRIVE_ID + "/items/" + f.file_id + "/createLink"
-        payload = "{\"type\": \"view\",\"scope\": \"anonymous\"}"
+        payload = '{"type": "view","scope": "anonymous"}'
         headers = {
             'content-type': 'application/json',
             'authorization': 'Bearer ' +  self.sharepoint_token
