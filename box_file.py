@@ -34,7 +34,7 @@ class BoxFile:
         path = '/'
         for folder in mylist['entries']:
             #print(folder['name'])
-            path = path + folder['name'].lstrip() + '/' #sometimes folder names start with whitespace ??
+            path = path + folder['name'].strip() + '/' #sometimes folder names start with whitespace ??
         return path
 
     def get_full_path(self):
