@@ -1,4 +1,4 @@
-#Sharepoint/box share link generator
+# Sharepoint/box share link generator
 
 Loads CSV file including either box share links or sharepoint file locations and generetas the correspondign sharepoint view url.
 
@@ -44,8 +44,8 @@ Microsoft calls both tenant id or directory id.
     authorization: Bearer {token}
 
         {
-         "type": "edit",
-         "scope": "organization"
+         "type": "view",
+         "scope": "anonymous"
         }
 
 
