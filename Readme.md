@@ -147,12 +147,14 @@ Input (input.csv)
     foo,bar,file_path
     foo1,bar1,/folder/subfolder/doc.pdf
     foo2,bar2,/anotherfolder/subfolder/doc2.pdf
+    foo3,bar4,/anotherfolder/subfolder/doc3.pdf
 
 Output (input-result.csv)
 
     foo,bar,file_path,sharepoint
     foo1,bar1,/folder/subfolder/doc.pdf,https://company.sharepoint.com/sites/main/_layouts/15/guestaccess.aspx?docid=123123123123123123&authkey=1231231231231
     foo2,bar2,/anotherfolder/subfolder/doc2.pdf,https://company.sharepoint.com/sites/main/_layouts/15/guestaccess.aspx?docid=223123123123123124&authkey=1231231231230
+    foo3,bar3,/anotherfolder/subfolder/doc3.pdf,ERROR: File {sharepoint root folder} /anotherfolder/subfolder/doc3.pdf does not exist
 
 
 ### Generating new import files including errors only
