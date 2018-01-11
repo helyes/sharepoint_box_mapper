@@ -20,7 +20,7 @@ Only *view* links can be generated as embed links are limited to personal onedri
 
 [Getting azure tenant id](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/Properties)
 
-Microsoft calls both tenant id or directory id.
+Microsoft calls it both *tenant id* or *directory id*.
 
 [Get azure token](https://developer.microsoft.com/en-us/graph/docs/concepts/auth_v2_service)
 
