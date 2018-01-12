@@ -14,7 +14,8 @@
 
 """
 
-import csv, argparse
+import csv
+import argparse
 #from pprint import pprint
 from time import sleep
 import time
@@ -69,7 +70,7 @@ BOX_URL_COLUMN_NAME = args.boxurlcolumn
 
 print('Input file:\t', args.input)
 print('Box url column:\t', BOX_URL_COLUMN_NAME + ', Starting at position', args.first, 'and loading', ('all' if args.limit == 0 else args.limit), 'entries')
-OUTPUT_FILE = FileHelper.get_output_file_path(input_file_path = args.input, first=args.first, limit=args.limit)
+OUTPUT_FILE = FileHelper.get_output_file_path(input_file_path=args.input, first=args.first, limit=args.limit)
 print('Output file:\t', OUTPUT_FILE)
 box_client = BoxClient(token=args.token, debug=args.verbose)
 sharepoint_client = SharepointClient(client_id=args.spclientid, client_secret=args.spclientsecret, onedrive_id=args.onedriveid, azure_tenant_id=args.azuretenantid)

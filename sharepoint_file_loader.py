@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-import csv, argparse
+import csv
+import argparse
 from pprint import pprint
 from time import sleep
 import time
@@ -12,7 +13,7 @@ COLORS = {
     'header' : PrintColor.HEADER,
     'file' : PrintColor.OKGREEN,
     'folder' : PrintColor.WARNING,
-    'UNKNOWN' : PrintColor.FAIL,    
+    'UNKNOWN' : PrintColor.FAIL,
 }
 
 print(COLORS['header'] + 'Starting...' + PrintColor.ENDC)
@@ -99,7 +100,7 @@ for row in READER:
     print(COLORS['header'] + \
         '[' + str(counter-args.first+1) + '/' + str(LIMIT-1) +'/'  + str(CSV_IN_ROW_COUNT-1) + '] ' + \
         'Processing ', row[SHAREPOINT_LOCATION_COLUMN_NAME] + PrintColor.ENDC)
-    
+
     start_time = time.time()
 
     #sharepoint

@@ -16,9 +16,9 @@ class SharepointClient:
     returns { ...  "id": "b!piwuefhoaiwuefhpaciwu3eaeuhfaiwuehfaa-1323456", ...} \n\n
 
     """
-    
-    ONEDRIVE_ID = None
+
     GRAPH_BASE_URL = 'https://graph.microsoft.com/v1.0'
+    onedrive_id = None
     sharepoint_token = None
     sharepoint_client_secret = None
     sharepoint_client_id = None
@@ -29,11 +29,11 @@ class SharepointClient:
         print('Initializing sp client... Client id:', client_id + ", Client secret:", client_secret + ", Onedrive:", onedrive_id + ", Azure tenant id:", azure_tenant_id)
         self.sharepoint_client_id = client_id
         self.sharepoint_client_secret = client_secret
-        self.ONEDRIVE_ID = onedrive_id
+        self.onedrive_id = onedrive_id
         self.azure_tenant_id = azure_tenant_id
         self.sharepoint_token = self.request_token()
-        
-        
+
+
     def request_token(self):
         """
         Returns a token to be used in subseqent calls
@@ -56,7 +56,7 @@ class SharepointClient:
 
     def get_file_metadata(self, path):
         """Returns onedrive file metadata based on given path"""
-        url = self.GRAPH_BASE_URL +  "/drives/" + self.ONEDRIVE_ID + "/root:/" + path
+        url = self.GRAPH_BASE_URL +  "/drives/" + self.onedrive_id + "/root:/" + path
         headers = {'authorization': 'Bearer ' + self.sharepoint_token}
         response_raw = requests.request("GET", url, headers=headers)
         response = json.loads(response_raw.text)
@@ -73,9 +73,9 @@ class SharepointClient:
         ret = SharepointFile(metadata)
         return ret
 
-    def get_shared_url_secure(self, f: SharepointFile):
-        print('Getting shared url...')
-        url = self.GRAPH_BASE_URL + "/drives/" + self.ONEDRIVE_ID + "/root:/" + f.get_full_path()
+    def get_shared_url_secure(self, the_file: SharepointFile):
+        """Returns a shared url with access to organization members only"""
+        url = self.GRAPH_BASE_URL + "/drives/" + self.onedrive_id + "/root:/" + the_file.get_full_path()
         headers = {'authorization': 'Bearer ' + self.sharepoint_token}
         response_raw = requests.request("GET", url, headers=headers)
         response = json.loads(response_raw.text)
@@ -83,8 +83,9 @@ class SharepointClient:
         #print("Secure share url:", response['@microsoft.graph.downloadUrl'])
         return response['@microsoft.graph.downloadUrl']
 
-    def get_shared_url_public(self, f: SharepointFile):
-        url = self.GRAPH_BASE_URL +  "/drives/" + self.ONEDRIVE_ID + "/items/" + f.file_id + "/createLink"
+    def get_shared_url_public(self, the_file: SharepointFile):
+        """Returns a shared view url available to everyone with the link"""
+        url = self.GRAPH_BASE_URL +  "/drives/" + self.onedrive_id + "/items/" + the_file.file_id + "/createLink"
         payload = '{"type": "view","scope": "anonymous"}'
         headers = {
             'content-type': 'application/json',

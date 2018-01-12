@@ -46,4 +46,3 @@ class BoxFile:
     def get_type(self):
         """Returns shared link type: folder or file"""
         return self.shared_item_type
-
