@@ -82,7 +82,7 @@ queuelib==1.4.2
 rapydscript==0.0.2
 request==0.0.13
 requests==2.9.1
-Scrapy==1.4.0
+Scrapy==1.8.1
 semantic-version==2.5.0
 service-identity==17.0.0
 setupfiles==0.0.50
